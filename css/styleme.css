@@ -1,0 +1,16 @@
+body{
+    background-color: dimgray;
+    color: aliceblue;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    text-align: left;
+}
+
+h1,h2{
+    color:aqua;
+}
+h1{
+    font-size: 36pt;
+}
+h2{
+    font-size: 20pt;
+}
