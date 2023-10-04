@@ -14,3 +14,21 @@ h1{
 h2{
     font-size: 20pt;
 }
+a:link {
+    color: slategray;
+}
+a:visited {
+    color: rgb(224, 17, 17);
+}
+a:hover {
+    color: rgb(221, 255, 0);
+}
+a:active {
+    color:orange;
+}
+p::first-letter {
+  font-size: x-large;
+}
+.yellow{
+    color: gold;
+}
