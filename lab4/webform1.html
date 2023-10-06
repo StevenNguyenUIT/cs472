@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>webform1</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+</head>
+<body style="display: block; margin: 10% 10% 0 10%;">
+    <header><h1>Login Page</h1></header>
+    <main>
+        <section>
+            <form>
+                <div class="mb-3">
+                  <label class="form-label">Email address</label>
+                  <input type="text" class="form-control" placeholder="Enter email">
+                  <div class="form-text">We'll never share your email with anyone else.</div>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Password</label>
+                  <input type="password" required placeholder="Password" class="form-control" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{10,}" title="Password field is at least 10 characters in length and contain at least one number and one uppercase and lowercase letter">
+                </div>
+                <div class="mb-3 form-check">
+                  <input type="checkbox" class="form-check-input">
+                  <label class="form-check-label">Check me out</label>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Enter a website url</label>
+                    <input type="text" required class="form-control" pattern="^https?:\/\/.*" title="Website need to begin either 'http://' or 'https://' ">
+                  </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </section>
+    </main>
+    <footer></footer>
+</body>
+</html>
