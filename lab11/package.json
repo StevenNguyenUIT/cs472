@@ -1,0 +1,11 @@
+{
+  "name": "lab11",
+  "version": "1.0.0",
+  "description": "this is solution for lab11 Wap CS472",
+  "main": "index.js",
+  "scripts": {
+    "question2": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
