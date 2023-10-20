@@ -8,8 +8,8 @@ router.get('/',(req,res,next)=>{
 })
 
 router.post('/', express.urlencoded({extended:false}),(req,res,next)=>{
-    console.log(req.url);
-    res.send("Routing "+ req.method + " "+req.body);
+    console.log(req.query);
+    res.send(req.query);
 })
 
 module.exports = router;
