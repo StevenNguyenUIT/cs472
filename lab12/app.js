@@ -23,15 +23,15 @@ app.use("/users",userRouter);
 
 //application level 
 
-app.use('/asdf',(req,res,next)=>{
+// 404 Page
+app.use((req, res) => {
     res.status(404).sendFile("./view/404.html", { root: "./public" });    
 });
-
-
-// error handling
-app.use('/err',(err, req, res, next) => {
-    console.error(err.stack);
-    res.status(500).send('Internal Server Error');
+  
+// Error Handling Middleware
+app.use((err, req, res, next) => {
+    console.error(err);
+    res.status(500).send('500 - Internal Server Error');
 });
 
 
