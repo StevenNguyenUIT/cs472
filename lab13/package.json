@@ -1,0 +1,14 @@
+{
+  "name": "lab13",
+  "version": "1.0.0",
+  "description": "This is lab13",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "author": "VanNhinhNguyen",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
