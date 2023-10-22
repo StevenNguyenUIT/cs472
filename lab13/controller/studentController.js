@@ -42,8 +42,8 @@ let controller = {
     },
 
     updateStudent: function (req, res, next) {
-        let { id, name, program } = req.body;
-        console.log(id, name, program);
+        let {id} = req.params;
+        let {name, program } = req.query;
         if (id && name && program) {
             let updatedStudent = new Student(parseInt(id), name, program);
             updatedStudent.update();
