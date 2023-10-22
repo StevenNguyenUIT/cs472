@@ -6,10 +6,11 @@ async function display() {
     if (response.ok) {
         json = await response.json();
         console.log(json);
+        addOptionToDropdown();
         for (let e of json) {
             addRowToTable(e.id, e.name, e.program)
-            addStudentIdRemove(e.id);
-            addStudentIdUpdate(e.id)
+            addOptionStudentIdRemove(e.id);
+            addOptionStudentIdUpdate(e.id)
         }
     }
     else alert("Error" + response.status);
@@ -38,6 +39,8 @@ async function addStudent(id, name, program) {
     let response = await fetch("http://localhost:5000/students", setting);
     if (response.ok) {
         addRowToTable(id, name, program);
+        addOptionStudentIdRemove(id);
+        addOptionStudentIdUpdate(id);
     } else alert("Error " + response.status);
 
 }
@@ -51,7 +54,7 @@ document.getElementById('btnRegister').addEventListener("click", () => {
 });
 
 //show student id list remove in dropdown
-function addStudentIdRemove(id) {
+function addOptionStudentIdRemove(id) {
     let option = document.createElement('option');
     option.setAttribute("value", id);
     option.appendChild(document.createTextNode(id));
@@ -71,6 +74,8 @@ async function removeStudent(id) {
     let response = await fetch("http://localhost:5000/students/" + id, setting);
     if (response.ok) {
         document.getElementById(id).remove();
+        alert("Deleted Successfully");
+        removeOptionStudentIdUpdate(id);
     } else alert("Error " + response.status);
     let element = document.querySelectorAll("option[value='" + id + "']")[0];
     element.remove();
@@ -78,35 +83,81 @@ async function removeStudent(id) {
 
 //update student
 
-function addStudentIdUpdate(id) {
+document.getElementById('btnUpdate').addEventListener('click', () =>{
+    let id = document.getElementById('idForUpdate').value;
+    let name = document.getElementById('nameForUpdate').value;
+    let program = document.getElementById('programForUpdate').value;
+    if (id == "" || name == "" || program == "") {
+        alert("Please fill all the fields");
+        return;
+    }
+    let optionValues = document.getElementById('ddlStudentForUpdate');
+    for(let e of optionValues){
+        if(e.value == id) {
+            updateStudent(id, name, program);
+            document.getElementById('myform').reset()
+            return;
+        }
+    }
+    alert("Please select student id from dropdown or input valid id");
+});
+
+async function updateStudent(id, name, program) {
+    let obj = { id, name, program };
+    console.log(id, name, program);
+    let setting = {
+        method: "PUT",
+        body: JSON.stringify(obj),
+        headers: { "Content-Type": 'application/json' }
+    }
+    let response = await fetch("http://localhost:5000/students/" + id + '?name=' + name +'&program=' + program, setting);
+    if (response.ok) {
+        document.getElementById(id).childNodes[1].innerHTML = name;
+        document.getElementById(id).childNodes[2].innerHTML = program;
+        alert("Updated Successfully");
+    } else alert("Error " + response.status);
+
+}
+
+//show list id in dropdown for remove and update
+
+
+document.getElementById('ddlStudentForUpdate').addEventListener("click", () => {
+    let id = document.getElementById('ddlStudentForUpdate').value;
+    console.log(id);
+    if (id != "") getStudent(id);
+});
+
+async function getStudent(id) { 
+    let response = await fetch("http://localhost:5000/students/" + id);
+    let json;
+    if (response.ok){
+        json = await response.json();
+        console.log(json);
+        document.getElementById('idForUpdate').value = json.id;
+        document.getElementById('nameForUpdate').value = json.name;
+        document.getElementById('programForUpdate').value = json.program;
+    }
+}
+
+
+function addOptionToDropdown(){
+    let option = document.createElement('option');
+    option.setAttribute("value", "");
+    option.appendChild(document.createTextNode("Select Student Id"));
+    document.getElementById('ddlStudentForUpdate').appendChild(option);
+}
+function addOptionStudentIdUpdate(id) {
     let option = document.createElement('option');
     option.setAttribute("value", id);
     option.appendChild(document.createTextNode(id));
     document.getElementById('ddlStudentForUpdate').appendChild(option);
 }
 
-document.getElementById('btnUpdate').addEventListener("click", () => {
-    let id = document.getElementById('id').value;
-    let name = document.getElementById('name').value;
-    let program = document.getElementById('program').value;
-    updateStudent(id, name, program);
-});
-
-async function updateStudent(id, name, program) {
-    let obj = { id, name, program };
-    let setting = {
-        method: "PUT",
-        body: JSON.stringify(obj),
-        headers: { "Content-Type": 'application/json' }
-    }
-    let response = await fetch("http://localhost:5000/students/" + id, setting);
-    if (response.ok) {
-        document.getElementById(id).remove();
-        addRowToTable(id, name, program);
-    } else alert("Error " + response.status);
-
+//function to remove dropdown list from id
+function removeOptionStudentIdUpdate(id) {
     let element = document.querySelectorAll("option[value='" + id + "']")[0];
     element.remove();
-    addStudentIdRemove(id);
-    addStudentIdUpdate(id);
 }
+
+
