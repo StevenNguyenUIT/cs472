@@ -14,7 +14,6 @@ async function display() {
         }
     }
     else alert("Error" + response.status);
-
 }
 
 function addRowToTable(id, name, program) {
@@ -61,12 +60,13 @@ function addOptionStudentIdRemove(id) {
     document.getElementById('ddlStudent').appendChild(option);
 }
 
-//remove student in dropdown
+//get event from btnDelete
 document.getElementById('btnDelete').addEventListener("click", () => {
     let id = document.getElementById('ddlStudent').value;
     removeStudent(id);
 });
 
+//remove student
 async function removeStudent(id) {
     let setting = {
         method: "DELETE"
@@ -81,8 +81,7 @@ async function removeStudent(id) {
     element.remove();
 }
 
-//update student
-
+//get event from btnUpdate
 document.getElementById('btnUpdate').addEventListener('click', () =>{
     let id = document.getElementById('idForUpdate').value;
     let name = document.getElementById('nameForUpdate').value;
@@ -102,6 +101,7 @@ document.getElementById('btnUpdate').addEventListener('click', () =>{
     alert("Please select student id from dropdown or input valid id");
 });
 
+//update student
 async function updateStudent(id, name, program) {
     let obj = { id, name, program };
     console.log(id, name, program);
@@ -119,15 +119,14 @@ async function updateStudent(id, name, program) {
 
 }
 
-//show list id in dropdown for remove and update
-
-
+//get event from ddlStudentForUpdate
 document.getElementById('ddlStudentForUpdate').addEventListener("click", () => {
     let id = document.getElementById('ddlStudentForUpdate').value;
     console.log(id);
     if (id != "") getStudent(id);
 });
 
+//get student by id
 async function getStudent(id) { 
     let response = await fetch("http://localhost:5000/students/" + id);
     let json;
@@ -140,13 +139,15 @@ async function getStudent(id) {
     }
 }
 
-
+//function to add Title dropdown list to id
 function addOptionToDropdown(){
     let option = document.createElement('option');
     option.setAttribute("value", "");
     option.appendChild(document.createTextNode("Select Student Id"));
     document.getElementById('ddlStudentForUpdate').appendChild(option);
 }
+
+//function to add dropdown list from id
 function addOptionStudentIdUpdate(id) {
     let option = document.createElement('option');
     option.setAttribute("value", id);
